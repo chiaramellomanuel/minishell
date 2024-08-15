@@ -1,0 +1,15 @@
+#ifndef MINISHELL_H
+# define MINISHELL_H
+#include "libft.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+
+typedef struct s_commands
+{
+	char				*content;
+	struct s_commands	*next;
+}	t_commands;
+
+#endif

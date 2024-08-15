@@ -1,0 +1,68 @@
+
+Queste funzioni appartengono a diverse categorie di funzioni di sistema e librerie standard in C, utilizzate per interagire con il sistema operativo, gestire file, processi, segnale, e altro ancora. Di seguito una spiegazione dettagliata di ciascuna di esse:
+
+1. **Funzioni per la gestione dell'input/output (I/O):**
+   - **`readline`**: Legge una linea di input dall'utente. Può gestire l'editing della linea e la cronologia dei comandi.
+   - **`rl_clear_history`**: Cancella la cronologia dei comandi precedentemente immessi.
+   - **`rl_on_new_line`**: Indica al sistema che una nuova riga di input sta per iniziare.
+   - **`rl_replace_line`**: Sostituisce il contenuto della linea corrente con una nuova stringa.
+   - **`rl_redisplay`**: Ridisegna la linea corrente sul terminale.
+   - **`add_history`**: Aggiunge una stringa alla cronologia dei comandi.
+   - **`printf`**: Stampa formattata su standard output (stdout).
+   - **`write`**: Scrive dati su un file descriptor (fd), tipicamente usato per scrivere su file o dispositivi.
+   - **`access`**: Verifica l'accesso a un file (es. lettura, scrittura, esecuzione).
+   - **`open`**: Apre un file, restituendo un file descriptor che può essere utilizzato per operazioni di I/O.
+   - **`read`**: Legge dati da un file descriptor.
+   - **`close`**: Chiude un file descriptor, liberando le risorse associate.
+
+2. **Funzioni di gestione della memoria:**
+   - **`malloc`**: Alloca memoria dinamicamente sul heap.
+   - **`free`**: Libera la memoria precedentemente allocata con `malloc`.
+
+3. **Funzioni di gestione dei processi:**
+   - **`fork`**: Crea un nuovo processo duplicando il processo chiamante. Il processo figlio è identico al processo padre.
+   - **`wait`, `waitpid`, `wait3`, `wait4`**: Attende che un processo figlio termini e raccoglie il suo stato di uscita.
+   - **`execve`**: Esegue un nuovo programma nel contesto del processo chiamante, sostituendo il codice attualmente in esecuzione.
+   - **`exit`**: Termina un processo e restituisce un codice di uscita al sistema operativo.
+
+4. **Funzioni di gestione dei segnali:**
+   - **`signal`**: Imposta un gestore di segnali per un segnale specifico.
+   - **`sigaction`**: Una funzione più avanzata per impostare un gestore di segnali.
+   - **`sigemptyset`**: Inizializza un insieme di segnali (sigset) come vuoto.
+   - **`sigaddset`**: Aggiunge un segnale a un insieme di segnali.
+   - **`kill`**: Invia un segnale a un processo o a un gruppo di processi.
+
+5. **Funzioni di gestione dei file e directory:**
+   - **`getcwd`**: Ottiene il percorso della directory corrente di lavoro.
+   - **`chdir`**: Cambia la directory corrente di lavoro.
+   - **`stat`, `lstat`, `fstat`**: Recuperano informazioni su un file. `lstat` è simile a `stat`, ma non segue i link simbolici.
+   - **`unlink`**: Rimuove un file.
+   - **`dup`, `dup2`**: Duplica un file descriptor. `dup2` consente di specificare il file descriptor da duplicare.
+   - **`pipe`**: Crea una pipe (una forma di comunicazione interprocesso) e restituisce due file descriptor per i lati di lettura e scrittura della pipe.
+   - **`opendir`, `readdir`, `closedir`**: Funzioni per aprire, leggere e chiudere directory.
+
+6. **Funzioni di gestione degli errori:**
+   - **`strerror`**: Restituisce una stringa che descrive un errore basato su un numero di errore.
+   - **`perror`**: Stampa un messaggio di errore sullo standard error (stderr) basato sul valore di `errno`.
+
+7. **Funzioni di gestione del terminale:**
+   - **`isatty`**: Verifica se un file descriptor si riferisce a un terminale.
+   - **`ttyname`**: Restituisce il nome del terminale associato a un file descriptor.
+   - **`ttyslot`**: Restituisce l'indice della tabella di terminale per il terminale associato al file descriptor.
+   - **`ioctl`**: Controlla i dispositivi di I/O, come terminali e interfacce di rete, mediante operazioni di I/O a basso livello.
+   - **`tcsetattr`, `tcgetattr`**: Imposta e ottiene i parametri del terminale.
+
+8. **Funzioni per la gestione delle capacità del terminale (`termcap`):**
+   - **`tgetent`**: Inizializza la libreria termcap per il terminale corrente.
+   - **`tgetflag`**: Ottiene il valore di una capacità booleana del terminale.
+   - **`tgetnum`**: Ottiene il valore di una capacità numerica del terminale.
+   - **`tgetstr`**: Ottiene il valore di una capacità stringa del terminale.
+   - **`tgoto`**: Costruisce una stringa di controllo per il posizionamento del cursore.
+   - **`tputs`**: Emette stringhe di controllo del terminale.
+
+Queste funzioni coprono molte delle funzionalità fondamentali offerte dal sistema operativo Unix-like per gestire l'I/O, la memoria, i processi, i segnali, i file, i terminali, e altro ancora.
+
+
+
+
+   ciaoo    
