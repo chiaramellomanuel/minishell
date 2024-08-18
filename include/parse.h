@@ -2,6 +2,10 @@
 # define PARSE_H
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <limits.h>
 
 enum tokenValues
 {
@@ -17,16 +21,19 @@ enum tokenValues
 	T_VAR		= '$',
 	T_EXIT_STAT	= 1024,
 	T_DELIM,
-	T_RED_APPEN
+	T_RED_APPEN,
+	T_COMMAND,
+	T_FLAG
 };
 
 typedef struct s_input
 {
 	char			*data;
 	int				type;
+	char			*path;
 	struct s_input	*next;
 }	t_input;
 
-void	input_parse(char *input);
+int	input_parse(char *input);
 
 #endif

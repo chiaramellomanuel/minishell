@@ -36,13 +36,13 @@ static void	print_temp()
 	i = 1;
 	while (commands)
 	{
-		ft_printf("\nn.%d\ndata: %s\ntype: %d\n", i, commands->data, commands->type);
+		ft_printf("\nn.%d\ndata: %s\ntype: %d\npath: %s\n", i, commands->data, commands->type, commands->path);
 		i++;
 		commands = commands->next;
 	}
 }
 
-static void	init()
+static int	init()
 {
 	char	*input;
 	char	*str;
@@ -51,23 +51,24 @@ static void	init()
 	while (1)
 	{
 		if (!(prompt = get_prompt()))
-			return ;
+			return (1);
     	input = readline(prompt);
 		free (prompt);
 		if (input[0] != '0')
 		{
 			str = ft_strtrim(input, " \t\n");
-			input_parse(str);
-			print_temp();
+			if (input_parse(str))
+				print_temp();
 			free (input);
 			free (str);
 		}
 		else
 		{
 			free (input);
-			return ;
+			return (1);
 		}
     }
+	return (1);
 }
 
 int	main(void)
