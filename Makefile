@@ -1,6 +1,6 @@
 NAME		:= minishell
 LIBFT		:= libft/libft.a
-CC			:= cc
+CC			:= gcc -g
 CFLAGS		:= -Werror -Wextra -Wall -I./include
 LIB			:= ft
 RM			:= rm -rf
@@ -8,7 +8,8 @@ SRC_DIR		:= src
 BUILD_DIR	:= .build
 DIR_DUP		:= mkdir -p $(@D)
 
-SRCS		:= $(SRC_DIR)/parse.c
+SRCS		:= $(SRC_DIR)/minishell.c \
+				$(SRC_DIR)/parse.c
 
 OBJS		:= $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 

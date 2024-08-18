@@ -1,72 +1,150 @@
-#include "minishell.h"
+#include "parse.h"
+#include "libft.h"
 
-static char	*trim_input(char *input)
+int	get_type(char c)
 {
-	int		i;
-	int		j;
-	int		offset;
-	char	*str;
-	
-	i = 0;
-	while (input[i] == ' ' || input[i] == '\t' || input[i] == '\n')
-		i++;
-	offset = i;
-	while (input[offset + 1])
-		offset++;
-	while (input[offset] == ' ' || input[offset] == '\t' || input[offset] == '\n')
-		offset--;
-	str = ft_calloc((offset - i) + 2, sizeof(char));
-	j = 0;
-	while (i <= offset)
-		str[j++] = input[i++];
-	return (str);
+	switch (c)
+	{
+		case T_QUOTE:
+			return (T_QUOTE);
+			break;
+		case T_DQUOTE:
+			return (T_DQUOTE);
+			break;
+		case T_RED_IN:
+			return (T_RED_IN);
+			break;
+		case T_RED_OUT:
+			return (T_RED_OUT);
+			break;
+		case T_PIPE:
+			return (T_PIPE);
+			break;
+		case T_VAR:
+			return (T_VAR);
+			break;
+		default:
+			return (T_GENERAL);
+	}
+	return (0);
 }
 
-static char	*get_prompt()
+static size_t	cmd_len(char *input, int type)
 {
-	char	*prompt;
-	char	cwd[1024];
 	size_t	i;
 
-	if (getcwd(cwd, sizeof(cwd)) == NULL)
-	{
-		perror("getcwd() error");
-		return (NULL);
-	}
 	i = 0;
-	while (cwd[i++]);
-		;
-	prompt = ft_strjoin("\033[1;32m", getenv("USER"));
-	prompt = ft_freejoin(prompt, "\033[0m:\033[1;34m");
-	prompt = ft_freejoin(prompt, cwd);
-	prompt = ft_freejoin(prompt, "\033[0m$ ");
-	return (prompt);
+	switch (type)
+	{
+		case T_QUOTE:
+			input++;
+			while (*input && *input != T_QUOTE)
+			{
+				input++;
+				i++;
+			}
+			return (i);
+			break;
+		case T_DQUOTE:
+			input++;
+			while (*input && *input != T_DQUOTE)
+			{
+				input++;
+				i++;
+			}
+			return (i);
+			break;
+		case T_RED_IN:
+			if (*(input + 1) && *(input + 1) == T_RED_IN)
+				return (2);
+			else
+				return (1);
+			break;
+		case T_RED_OUT:
+			if (*(input + 1) && *(input + 1) == T_RED_OUT)
+				return (2);
+			else
+				return (1);
+			break;
+		case T_PIPE:
+			return (1);
+			break;
+		default:
+			while (*input && (*input != T_WHITESPC &&
+					*input != T_NEWLINE && *input != T_TAB))
+			{
+				input++;
+				i++;
+			}
+			return (i);
+			break;
+	}
+	return (0);
 }
 
-int	main(void)
+void	input_parse(char *input)
 {
-	char	*input;
-	char	*str;
-	char	*prompt;
+	t_input	*commands;
+	t_input	*head;
+	size_t	size;
+	size_t	i;
 
-	while (1)
+	commands = malloc(sizeof(t_input));
+	head = commands;
+	while (*input && *input != T_NEWLINE)
 	{
-		if (!(prompt = get_prompt()))
-			return (1);
-    	input = readline(prompt);
-		free (prompt);
-		if (input[0] != '0')
+		commands->type = get_type(*input);
+		size = cmd_len(input, commands->type);
+		commands->data = ft_calloc(size + 1, sizeof(char));
+		i = 0;
+		switch (commands->type)
 		{
-			str = trim_input(input);
-			// ft_printf("%s\n", str);
-			free (input);
-			free (str);
+			case T_QUOTE:
+			case T_DQUOTE:
+				input++;
+				while (i < size)
+					while (i < size)
+					commands->data[i++] = *input++;
+				commands->next = NULL;
+				if (*input == T_QUOTE || *input == T_DQUOTE)
+					input++;
+				break;
+			case T_RED_IN:
+				if (size == 2)
+				{
+					commands->data = "<<";
+					commands->type = T_DELIM;
+					input++;
+				}
+				else
+					commands->data[0] = T_RED_IN;
+				input++;
+				commands->next = NULL;
+				break;
+			case T_RED_OUT:
+				if (size == 2)
+				{
+					commands->data = ">>";
+					commands->type = T_RED_APPEN;
+					input++;
+				}
+				else
+					commands->data[0] = T_RED_OUT;
+				input++;
+				commands->next = NULL;
+				break;
+			default:
+				while (i < size)
+					commands->data[i++] = *input++;
+				commands->next = NULL;
+				break;
 		}
-		else
-		{
-			free (input);
-			return (0);
-		}
-    }
-	return (0);
+		while (*input == T_WHITESPC || *input == T_TAB ||
+				*input == T_NEWLINE)
+			input++;
+		if (*input)
+			commands->next = malloc(sizeof(t_input));
+		commands = commands->next;
+	}
+	commands = head;
 }

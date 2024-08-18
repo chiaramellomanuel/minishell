@@ -61,8 +61,3 @@ Queste funzioni appartengono a diverse categorie di funzioni di sistema e librer
    - **`tputs`**: Emette stringhe di controllo del terminale.
 
 Queste funzioni coprono molte delle funzionalità fondamentali offerte dal sistema operativo Unix-like per gestire l'I/O, la memoria, i processi, i segnali, i file, i terminali, e altro ancora.
-
-
-
-
-   ciaoo    
