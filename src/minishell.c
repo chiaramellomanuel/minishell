@@ -2,6 +2,26 @@
 #include "parse.h"
 #include "libft.h"
 
+void	free_all(char *input, char *str, t_input *commands)
+{
+	t_input *current;
+
+	current = commands;
+	if (str)
+		free (str);
+	if (input)
+		free (input);
+	while (current)
+	{
+		free (current->data);
+		if (current->path)
+			free (current->path);
+		commands = commands->next;
+		free (current);
+		current = commands;
+	}
+}
+
 static char	*get_prompt()
 {
 	char	*prompt;
@@ -28,18 +48,20 @@ static char	*get_prompt()
 	return (prompt);
 }
 
-static void	print_temp()
+static void	print_temp(t_input *commands)
 {
-	t_input *commands;
 	size_t	i;
+	t_input	*head;
 
 	i = 1;
+	head = commands;
 	while (commands)
 	{
 		ft_printf("\nn.%d\ndata: %s\ntype: %d\npath: %s\n", i, commands->data, commands->type, commands->path);
 		i++;
 		commands = commands->next;
 	}
+	commands = head;
 }
 
 static int	init()
@@ -47,6 +69,7 @@ static int	init()
 	char	*input;
 	char	*str;
 	char	*prompt;
+	t_input	*commands;
 
 	while (1)
 	{
@@ -57,10 +80,12 @@ static int	init()
 		if (input[0] != '0')
 		{
 			str = ft_strtrim(input, " \t\n");
-			if (input_parse(str))
-				print_temp();
-			free (input);
-			free (str);
+			commands = malloc(sizeof(t_input));
+			if (input_parse(str, commands))
+				print_temp(commands);
+			free_all(input, str, commands);
+			// free (input);
+			// free (str);
 		}
 		else
 		{

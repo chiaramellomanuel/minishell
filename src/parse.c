@@ -1,24 +1,100 @@
 #include "parse.h"
 #include "libft.h"
 
+// static void	check_if_file(t_input *commands)
+// {
+// 	t_input	*current;
+// 	char	cwd[1024];
+// 	char	*path;
+
+// 	current = commands->next;
+// 	if (!getcwd(cwd, sizeof(cwd)))
+// 	{
+// 		perror("getcwd() error");
+// 		return ;
+// 	}
+// 	while (current && current->type == T_GENERAL)
+// 	{
+// 		path = ft_strjoin(cwd, "/");
+// 		path = ft_freejoin(path, commands->data);
+// 		if (access(path, F_OK) == 0 && access(path, R_OK) == 0)
+// 			current->type = T_FILE;
+// 		current = current->next;
+// 		free (path);
+// 	}
+// }
+
+static void	check_if_flag_or_file(t_input *commands)
+{
+	t_input	*current;
+	char	cwd[1024];
+	char	*path;
+
+	current = commands->next;
+	if (!getcwd(cwd, sizeof(cwd)))
+	{
+		perror("getcwd() error");
+		return ;
+	}
+	while (current && current->type != T_PIPE)
+	{
+		if (current->data[0] == '-')
+			current->type = T_FLAG;
+		path = ft_strjoin(cwd, "/");
+		path = ft_freejoin(path, current->data);
+		if (access(path, F_OK) == 0 && access(path, R_OK) == 0)
+			current->type = T_FILE;
+		current = current->next;
+		free (path);
+	}
+}
+
 static char	*check_if_command(char *command)
 {
 	char	*path_env;
 	char	**dir;
 	char	*path;
+	size_t	i;
 
 	path_env = getenv("PATH");
 	if (!path_env)
 		return (0);
 	dir = ft_split(path_env, ':');
-	while (*dir)
+	i = 0;
+	while (dir[i])
 	{
-		path = ft_strjoin(*dir++, "/");
+		path = ft_strjoin(dir[i++], "/");
 		path = ft_freejoin(path, command);
 		if (access(path, X_OK) == 0)
+		{
+			i = 0;
+			while (dir[i])
+				free (dir[i++]);
+			free (dir);
 			return (path);
+		}
+		free (path);
 	}
+	i = 0;
+	while (dir[i])
+				free (dir[i++]);
+			free (dir);
 	return (NULL);
+}
+
+static int	check_if_builtin(char *cd)
+{
+	char	*builtins[] = {"echo", "cd", "pwd", "export", "unset", "env", "exit", NULL};
+	size_t	i;
+
+	i = 0;
+	while (builtins[i])
+	{
+		if (ft_strncmp(cd, builtins[i], 1024) == 0)
+			return (T_BUILTIN);
+		i++;
+	}
+	return (T_GENERAL);
 }
 
 static int	check_syntax(t_input *commands)
@@ -28,12 +104,15 @@ static int	check_syntax(t_input *commands)
 		switch (commands->type)
 		{
 			case T_GENERAL:
-				commands->path = check_if_command(commands->data);
-				if (commands->path)
+				commands->type = check_if_builtin(commands->data);
+				if (commands->type == T_GENERAL)
 				{
-					commands->type = T_COMMAND;
-					if (commands->next->data[0] == '-')
-						commands->next->type = T_FLAG;
+					commands->path = check_if_command(commands->data);
+					if (commands->path)
+					{
+						commands->type = T_COMMAND;
+						check_if_flag_or_file(commands);
+					}
 				}
 			break;
 			default:
@@ -142,16 +221,14 @@ static int	cmd_len(char *input, int type)
 	return (0);
 }
 
-int	input_parse(char *input)
+int	input_parse(char *input, t_input *commands)
 {
-	t_input	*commands;
 	t_input	*head;
 	int		size;
 	int		i;
 
-	commands = malloc(sizeof(t_input));
 	head = commands;
-	while (*input && *input != T_NEWLINE)
+	while (*input)
 	{
 		commands->type = get_type(*input);
 		size = cmd_len(input, commands->type);
@@ -220,7 +297,6 @@ int	input_parse(char *input)
 			commands->next = malloc(sizeof(t_input));
 		commands = commands->next;
 	}
-	commands = head;
-	check_syntax(commands);
+	check_syntax(head);
 	return (1);
 }

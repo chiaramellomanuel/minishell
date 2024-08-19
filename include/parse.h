@@ -23,7 +23,9 @@ enum tokenValues
 	T_DELIM,
 	T_RED_APPEN,
 	T_COMMAND,
-	T_FLAG
+	T_FLAG,
+	T_FILE,
+	T_BUILTIN
 };
 
 typedef struct s_input
@@ -34,6 +36,7 @@ typedef struct s_input
 	struct s_input	*next;
 }	t_input;
 
-int	input_parse(char *input);
+int		input_parse(char *input, t_input *commands);
+void	free_all(char *input, char *str, t_input *commands);
 
 #endif
