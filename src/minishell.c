@@ -13,11 +13,13 @@ void	free_all(char *input, char *str, t_input *commands)
 		free (input);
 	while (current)
 	{
-		free (current->data);
+		if (current->data)
+			free (current->data);
 		if (current->path)
 			free (current->path);
 		commands = commands->next;
 		free (current);
+		current = NULL;
 		current = commands;
 	}
 }
@@ -84,8 +86,6 @@ static int	init()
 			if (input_parse(str, commands))
 				print_temp(commands);
 			free_all(input, str, commands);
-			// free (input);
-			// free (str);
 		}
 		else
 		{

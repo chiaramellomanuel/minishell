@@ -30,22 +30,20 @@ static void	check_if_flag_or_file(t_input *commands)
 	char	cwd[1024];
 	char	*path;
 
-	current = commands->next;
+	current = commands;
 	if (!getcwd(cwd, sizeof(cwd)))
 	{
 		perror("getcwd() error");
 		return ;
 	}
-	while (current && current->type != T_PIPE)
+	if (current->data[0] == '-')
+		current->type = T_FLAG;
+	path = ft_strjoin(cwd, "/");
+	path = ft_freejoin(path, current->data);
+	if (access(path, F_OK) == 0 && access(path, R_OK) == 0)
 	{
-		if (current->data[0] == '-')
-			current->type = T_FLAG;
-		path = ft_strjoin(cwd, "/");
-		path = ft_freejoin(path, current->data);
-		if (access(path, F_OK) == 0 && access(path, R_OK) == 0)
-			current->type = T_FILE;
-		current = current->next;
-		free (path);
+		current->type = T_FILE;
+		current->path = path;
 	}
 }
 
@@ -109,10 +107,9 @@ static int	check_syntax(t_input *commands)
 				{
 					commands->path = check_if_command(commands->data);
 					if (commands->path)
-					{
 						commands->type = T_COMMAND;
+					else
 						check_if_flag_or_file(commands);
-					}
 				}
 			break;
 			default:
@@ -242,7 +239,6 @@ int	input_parse(char *input, t_input *commands)
 			case T_DQUOTE:
 				input++;
 				while (i < size)
-					while (i < size)
 					commands->data[i++] = *input++;
 				commands->next = NULL;
 				if (*input == T_QUOTE || *input == T_DQUOTE)
@@ -251,7 +247,8 @@ int	input_parse(char *input, t_input *commands)
 			case T_RED_IN:
 				if (size == 2)
 				{
-					commands->data = "<<";
+					commands->data[0] = T_RED_IN;
+					commands->data[1] = T_RED_IN;
 					commands->type = T_DELIM;
 					input++;
 				}
@@ -263,7 +260,8 @@ int	input_parse(char *input, t_input *commands)
 			case T_RED_OUT:
 				if (size == 2)
 				{
-					commands->data = ">>";
+					commands->data[0] = T_RED_OUT;
+					commands->data[1] = T_RED_OUT;
 					commands->type = T_RED_APPEN;
 					input++;
 				}
@@ -275,7 +273,8 @@ int	input_parse(char *input, t_input *commands)
 			case T_VAR:
 				if (size == 2)
 				{
-					commands->data = "$?";
+					commands->data[0] = '$';
+					commands->data[1] = '?';
 					commands->type = T_EXIT_STAT;
 					input += 2;
 					commands->next = NULL;
