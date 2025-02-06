@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchiaram <mchiaram@student.42.fr>          +#+  +:+       +#+        */
+/*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 16:19:50 by mchiaram          #+#    #+#             */
-/*   Updated: 2024/06/21 11:29:07 by mchiaram         ###   ########.fr       */
+/*   Updated: 2025/02/04 14:48:57 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,10 @@ void	ft_putnbr_fd(int n, int fd);
 /* ADDED FUNCTIONS */
 char	*ft_strcat(char **dst, const char *src);
 char	*ft_stringlcopy(char *dst, const char *src, size_t size);
+char	*ft_strtrimcpy(char *dst, const char *src, size_t size);
+char	*ft_freetrim(char **s1, char const *set);
+char	*ft_uc_strchr(const char *s, int c);
+char	*ft_freelcopy(char **dst, const char *src, size_t size);
 
 /* PRINTF FUNCTIONS */
 int		ft_printf(const char *str, ...);

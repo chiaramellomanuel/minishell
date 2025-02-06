@@ -1,0 +1,70 @@
+1$
+1$
+prova$
+prova$
+/nfs/homes/gvigano/cursus/minishell$
+/nfs/homes/gvigano/cursus/minishell$
+pri$
+pri$
+ptoskja$
+psadiasda$
+prova$
+/nfs/homes/gvigano/cursus/minishell
+[1;32mgvigano[0m:[1;34m~/cursus/minishell[0m$ z^Zpwd
+[1;32mgvigano[0m:[1;34m~/cursus/minishell[0m$ ^Z/nfs/homes/gvigano/cursus/minishell
+/nfs/homes/gvigano/cursus/minishell
+[38;5;214mexport[0m COLORTERM="truecolor"
+[38;5;214mexport[0m DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/101489/bus,guid=20e4e846b9ceef492e99064d67a4a51f"
+[38;5;214mexport[0m DBUS_STARTER_ADDRESS="unix:path=/run/user/101489/bus,guid=20e4e846b9ceef492e99064d67a4a51f"
+[38;5;214mexport[0m DBUS_STARTER_BUS_TYPE="session"
+[38;5;214mexport[0m DESKTOP_SESSION="ubuntu"
+[38;5;214mexport[0m DISPLAY=":0"
+[38;5;214mexport[0m DOCKER_HOST="unix:///run/user/101489/docker.sock"
+[38;5;214mexport[0m GDMSESSION="ubuntu"
+[38;5;214mexport[0m GDM_LANG="en"
+[38;5;214mexport[0m GLIBCPP_FORCE_NEW="1"
+[38;5;214mexport[0m GLIBCXX_FORCE_NEW="1"
+[38;5;214mexport[0m GNOME_DESKTOP_SESSION_ID="this-is-deprecated"
+[38;5;214mexport[0m GNOME_TERMINAL_SCREEN="/org/gnome/Terminal/screen/0c372aa0_b198_4d60_930e_0eaf1a014dfc"
+[38;5;214mexport[0m GNOME_TERMINAL_SERVICE=":1.456"
+[38;5;214mexport[0m GPG_AGENT_INFO="/run/user/101489/gnupg/S.gpg-agent:0:1"
+[38;5;214mexport[0m GTK_MODULES="gail:atk-bridge"
+[38;5;214mexport[0m HOME="/nfs/homes/mchiaram"
+[38;5;214mexport[0m IM_CONFIG_PHASE="1"
+[38;5;214mexport[0m INVOCATION_ID="e98bfbdcfaa2432a99c283940751f3e3"
+[38;5;214mexport[0m JOURNAL_STREAM="8:1741189"
+[38;5;214mexport[0m KRB5CCNAME="FILE:/tmp/krb5cc_101489_thdY5S"
+[38;5;214mexport[0m LANG="en_US.UTF-8"
+[38;5;214mexport[0m LANGUAGE="en"
+[38;5;214mexport[0m LD_LIBRARY_PATH="/usr/lib/debug"
+[38;5;214mexport[0m LD_PRELOAD="/usr/lib/x86_64-linux-gnu/valgrind/vgpreload_core-amd64-linux.so:/usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so"
+[38;5;214mexport[0m LIBVIRT_DEFAULT_URI="qemu:///system"
+[38;5;214mexport[0m LOGNAME="mchiaram"
+[38;5;214mexport[0m MANAGERPID="1320165"
+[38;5;214mexport[0m OLDPWD="/nfs/homes/mchiaram/Documents/42Cursus/Circle_4/temp"
+[38;5;214mexport[0m PATH="/nfs/homes/mchiaram/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+[38;5;214mexport[0m PWD="/nfs/homes/mchiaram/Documents/42Cursus/Circle_4/temp"
+[38;5;214mexport[0m QT_ACCESSIBILITY="1"
+[38;5;214mexport[0m QT_IM_MODULE="ibus"
+[38;5;214mexport[0m SESSION_MANAGER="local/c1r1p10.42firenze.it:@/tmp/.ICE-unix/1321021,unix/c1r1p10.42firenze.it:/tmp/.ICE-unix/1321021"
+[38;5;214mexport[0m SHELL="/bin/zsh"
+[38;5;214mexport[0m SHLVL="2"
+[38;5;214mexport[0m SSH_AGENT_PID="1320983"
+[38;5;214mexport[0m SSH_AUTH_SOCK="/run/user/101489/keyring/ssh"
+[38;5;214mexport[0m TERM="xterm-256color"
+[38;5;214mexport[0m USER="mchiaram"
+[38;5;214mexport[0m VTE_VERSION="6003"
+[38;5;214mexport[0m XAUTHORITY="/nfs/homes/mchiaram/.Xauthority"
+[38;5;214mexport[0m XDG_CONFIG_DIRS="/etc/xdg/xdg-ubuntu:/etc/xdg"
+[38;5;214mexport[0m XDG_CURRENT_DESKTOP="ubuntu:GNOME"
+[38;5;214mexport[0m XDG_DATA_DIRS="/usr/share/gnome:/usr/share/ubuntu:/nfs/homes/mchiaram/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop"
+[38;5;214mexport[0m XDG_GREETER_DATA_DIR="/var/lib/lightdm-data/mchiaram"
+[38;5;214mexport[0m XDG_MENU_PREFIX="gnome-"
+[38;5;214mexport[0m XDG_RUNTIME_DIR="/run/user/101489"
+[38;5;214mexport[0m XDG_SEAT_PATH="/org/freedesktop/DisplayManager/Seat0"
+[38;5;214mexport[0m XDG_SESSION_CLASS="user"
+[38;5;214mexport[0m XDG_SESSION_DESKTOP="ubuntu"
+[38;5;214mexport[0m XDG_SESSION_PATH="/org/freedesktop/DisplayManager/Session0"
+[38;5;214mexport[0m XDG_SESSION_TYPE="x11"
+[38;5;214mexport[0m XMODIFIERS="@im=ibus"
+[38;5;214mexport[0m _="/usr/bin/valgrind"

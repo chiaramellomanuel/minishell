@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stringlcopy.c                                   :+:      :+:    :+:   */
+/*   ft_strtrimcpy.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchiaram <mchiaram@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/21 11:27:37 by mchiaram          #+#    #+#             */
-/*   Updated: 2024/10/22 12:17:41 by mchiaram         ###   ########.fr       */
+/*   Created: 2024/10/22 11:10:33 by mchiaram          #+#    #+#             */
+/*   Updated: 2025/01/30 14:45:08 by mchiaram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_stringlcopy(char *dst, const char *src, size_t size)
+char	*ft_strtrimcpy(char *dst, const char *src, size_t size)
 {
 	size_t	offset;
 
-	if (!src || !size)
+	if (!src || size == 0)
 		return (NULL);
-	dst = ft_calloc((size + 1), sizeof(char));
 	offset = 0;
-	while (*(src + offset) != '\0' && offset < (size))
+	while (*src && (*src == ' '
+			|| *src == '\t' || *src == '\n'))
+		src++;
+	dst = ft_calloc(size + 1, sizeof(char));
+	while (src && offset < (size))
 	{
-		*(dst + offset) = *(src + offset);
-		offset++;
+		dst[offset++] = *src++;
 	}
 	return (dst);
 }
