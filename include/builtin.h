@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchiaram <mchiaram@student.42.fr>          +#+  +:+       +#+        */
+/*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 16:19:50 by mchiaram          #+#    #+#             */
-/*   Updated: 2025/02/06 14:36:49 by mchiaram         ###   ########.fr       */
+/*   Updated: 2025/02/06 17:08:03 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ int		ft_export(t_token *data);
 int		valid_var_name(char *var);
 char	**export_var(char **env, char *var);
 char	**ft_unset(char **env, char *remove);
-void	ft_cd(t_token *data);
+int		ft_cd(t_token *data);
 
 #endif

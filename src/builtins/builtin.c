@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchiaram <mchiaram@student.42.fr>          +#+  +:+       +#+        */
+/*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:26:25 by gvigano           #+#    #+#             */
-/*   Updated: 2025/02/06 14:24:17 by mchiaram         ###   ########.fr       */
+/*   Updated: 2025/02/06 17:09:13 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	env_builtins(t_token *data, char *builtin)
 	char	**new_env;
 	size_t	i;
 
+	data->env->exit_stat = 0;
 	if (!ft_strncmp(builtin, "unset", ft_strlen(builtin)) && data->value[1])
 	{
 		i = 1;
@@ -29,13 +30,14 @@ static void	env_builtins(t_token *data, char *builtin)
 	}
 	else if (!ft_strncmp(builtin, "export", ft_strlen(builtin)))
 	{
-		if (ft_export(data))
-			data->env->exit_stat = 0;
-		else
+		if (!ft_export(data))
 			data->env->exit_stat = 1;
 	}
 	else
-		ft_cd(data);
+	{
+		if (!ft_cd(data))
+			data->env->exit_stat = 1;
+	}
 }
 
 void	execute_builtin(t_token *data, char *builtin, int fd1)
