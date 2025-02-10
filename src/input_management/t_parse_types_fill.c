@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_parse_types_fill.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchiaram <mchiaram@student.42.fr>          +#+  +:+       +#+        */
+/*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:23:04 by mchiaram          #+#    #+#             */
-/*   Updated: 2025/02/06 14:01:22 by mchiaram         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:56:56 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,15 @@ static int	check_if_var(t_parse *data, t_token *tok)
 	{
 		if (data->value[i] == '$')
 		{
-			i++;
-			if ((data->value[i] && data->value[i] == '?'))
+			if ((data->value[i + 1] && data->value[i + 1] == '?'))
 				data->type = T_EXIT_STAT;
+			else if (!data->value[i + 1])
+			{
+				return (0);
+			}
 			else
 			{
-				manage_var(data, tok, i);
+				manage_var(data, tok, i + 1);
 				i = 0;
 			}
 		}

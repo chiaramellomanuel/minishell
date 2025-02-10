@@ -1,0 +1,21 @@
+==17281== 16 bytes in 1 blocks are still reachable in loss record 11 of 80
+==17281==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17281==    by 0x10AC92: init_env (handle_env.c:104)
+==17281==    by 0x10956D: main_loop (minishell.c:38)
+==17281==    by 0x1096AC: main (minishell.c:72)
+
+==17281== 520 bytes in 1 blocks are still reachable in loss record 30 of 80
+==17281==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17281==    by 0x10D8C3: ft_calloc (ft_calloc.c:19)
+==17281==    by 0x10ACE0: init_env (handle_env.c:109)
+==17281==    by 0x10956D: main_loop (minishell.c:38)
+==17281==    by 0x1096AC: main (minishell.c:72)
+
+
+==17281== 4,224 bytes in 64 blocks are still reachable in loss record 66 of 80
+==17281==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==17281==    by 0x10D8C3: ft_calloc (ft_calloc.c:19)
+==17281==    by 0x10DDF4: ft_strdup (ft_strdup.c:22)
+==17281==    by 0x10AD22: init_env (handle_env.c:113)
+==17281==    by 0x10956D: main_loop (minishell.c:38)
+==17281==    by 0x1096AC: main (minishell.c:72)

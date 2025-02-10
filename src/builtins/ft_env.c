@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvigano <gvigano@student.42.fr>            +#+  +:+       +#+        */
+/*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:26:25 by gvigano           #+#    #+#             */
-/*   Updated: 2025/02/06 11:36:25 by gvigano          ###   ########.fr       */
+/*   Updated: 2025/02/10 15:47:07 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(t_token *data)
+void	ft_env(t_token *data, int fd)
 {
 	int	i;
 
@@ -20,7 +20,10 @@ void	ft_env(t_token *data)
 	while (data->env->var[i])
 	{
 		if (ft_strchr(data->env->var[i], '='))
-			printf("%s\n", data->env->var[i++]);
+		{
+			ft_putstr_fd(data->env->var[i++], fd);
+			ft_putchar_fd('\n', fd);
+		}
 		else
 			i++;
 	}

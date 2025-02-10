@@ -1,5 +1,0 @@
-cat -e "test1.txt" | grep -v lulz | wc -l >> 'outfile.txt'
-cat -e "test1.txt"|grep -v lulz|wc -l>>'outfile.txt'
-<< DELIM | grep -v lulz | wc -l >> 'outfile.txt'
-cat -e infile.txt | grep -v as | wc -l > outfile.txt
-echo "this is home $HOME of user $USER"

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvigano <gvigano@student.42.fr>            +#+  +:+       +#+        */
+/*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:40:43 by mchiaram          #+#    #+#             */
-/*   Updated: 2025/02/06 11:46:49 by gvigano          ###   ########.fr       */
+/*   Updated: 2025/02/10 17:34:04 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static int	main_loop(t_parse *data, t_token *tok, char **envp)
 			free_all(NULL, tok, env, &input);
 			return (1);
 		}
+		free (input);
 		free_token(tok);
 	}
 	return (0);

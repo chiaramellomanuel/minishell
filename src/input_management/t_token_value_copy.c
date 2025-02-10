@@ -3,16 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   t_token_value_copy.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchiaram <mchiaram@student.42.fr>          +#+  +:+       +#+        */
+/*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:22:57 by mchiaram          #+#    #+#             */
-/*   Updated: 2025/02/06 13:43:51 by mchiaram         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:06:08 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*find_path(t_token *tok, char *value)
+static char	*find_path_loop(char **dir, char *value, char **path_env)
+{
+	size_t	i;
+
+	i = 0;
+	while (dir[i])
+	{
+		if (check_path_access(dir[i], value))
+		{
+			free(*(path_env));
+			*(path_env) = ft_strjoin(dir[i], "/");
+			*(path_env) = ft_freejoin(*(path_env), value);
+			break ;
+		}
+		i++;
+	}
+	return (*(path_env));
+}
+
+static char	*find_path(t_token *tok, char **value)
 {
 	char	*path_env;
 	char	**dir;
@@ -20,24 +39,19 @@ static char	*find_path(t_token *tok, char *value)
 
 	path_env = ft_getenv(tok->env->var, "PATH");
 	if (!path_env)
-		return (0);
-	dir = ft_split(path_env, ':');
-	path_env = ft_freelcopy(&path_env, value, ft_strlen(value));
-	i = -1;
-	while (dir[++i])
 	{
-		if (check_path_access(dir[i], value))
-		{
-			free(path_env);
-			path_env = ft_strjoin(dir[i], "/");
-			path_env = ft_freejoin(path_env, value);
-			break ;
-		}
+		path_env = ft_strdup(*(value));
+		free (*(value));
+		return (path_env);
 	}
+	dir = ft_split(path_env, ':');
+	path_env = ft_freelcopy(&path_env, *(value), ft_strlen(*(value)));
+	path_env = find_path_loop(dir, *(value), &path_env);
 	i = 0;
 	while (dir[i])
 		free (dir[i++]);
 	free (dir);
+	free (*(value));
 	return (path_env);
 }
 
@@ -74,17 +88,15 @@ size_t	get_tok(t_parse *data, t_token *new_tok, t_redir *new_rd, size_t i)
 {
 	if (data && (data->type >= T_GENERAL && data->type <= T_COMMAND))
 	{
-		if (data->type >= T_QUOTE && data->type <= T_VAR)
+		if (data->type == T_QUOTE || data->type == T_DQUOTE)
+			remove_quotes(data);
+		if (data->value)
 		{
-			if (data->type == T_QUOTE || data->type == T_DQUOTE)
-				remove_quotes(data);
-			if (data->value)
-				new_tok->value[i++] = expand_exit_stat(data, new_tok);
+			new_tok->value[i] = expand_exit_stat(data, new_tok);
+			if (i == 0 && data->type != T_BUILTIN)
+				new_tok->value[i] = find_path(new_tok, &new_tok->value[i]);
+			i++;
 		}
-		else if (i == 0 && data->type != T_BUILTIN)
-			new_tok->value[i++] = find_path(new_tok, data->value);
-		else
-			new_tok->value[i++] = ft_strdup(data->value);
 	}
 	else if (data && (data->type >= T_RED_IN && data->type <= T_DELIM))
 	{
@@ -98,17 +110,15 @@ size_t	first_tok_copy(t_parse *data, t_token *tok, t_redir *rd, size_t i)
 {
 	if (data && (data->type >= T_GENERAL && data->type <= T_COMMAND))
 	{
-		if (data->type >= T_QUOTE && data->type <= T_VAR)
+		if (data->type == T_QUOTE || data->type == T_DQUOTE)
+			remove_quotes(data);
+		if (data->value)
 		{
-			if (data->type == T_QUOTE || data->type == T_DQUOTE)
-				remove_quotes(data);
-			if (data->value)
-				tok->value[i++] = expand_exit_stat(data, tok);
+			tok->value[i] = expand_exit_stat(data, tok);
+			if (i == 0 && data->type != T_BUILTIN)
+				tok->value[i] = find_path(tok, &(tok->value[i]));
+			i++;
 		}
-		else if (i == 0 && data->type != T_BUILTIN)
-			tok->value[i++] = find_path(tok, data->value);
-		else
-			tok->value[i++] = ft_strdup(data->value);
 	}
 	else if (data && (data->type >= T_RED_IN && data->type <= T_DELIM))
 	{

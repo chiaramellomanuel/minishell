@@ -6,7 +6,7 @@
 /*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:20:12 by mchiaram          #+#    #+#             */
-/*   Updated: 2025/02/05 19:28:14 by menny            ###   ########.fr       */
+/*   Updated: 2025/02/10 17:13:12 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ char	*prompt_init(t_token *tok)
 	char	*prompt;
 	char	*input;
 
+	g_kill_pid = -1;
 	prompt = get_prompt(tok);
 	if (!prompt)
 		return (NULL);
@@ -77,5 +78,6 @@ char	*prompt_init(t_token *tok)
 	free (prompt);
 	prompt = NULL;
 	input = ft_freetrim(&input, " \t\n");
+	g_kill_pid = 0;
 	return (input);
 }

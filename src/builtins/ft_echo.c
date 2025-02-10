@@ -6,7 +6,7 @@
 /*   By: gvigano <gvigano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:26:25 by gvigano           #+#    #+#             */
-/*   Updated: 2025/02/06 11:36:07 by gvigano          ###   ########.fr       */
+/*   Updated: 2025/02/06 14:39:58 by gvigano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_echo(t_token *data, int fd)
 	}
 	while (data->value[i])
 	{
-		if (i > 1)
+		if (i > 1 && data->value[i + 1])
 			write(fd, " ", 1);
 		write(fd, data->value[i], ft_strlen(data->value[i]));
 		i++;

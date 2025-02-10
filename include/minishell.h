@@ -6,7 +6,7 @@
 /*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:43:03 by mchiaram          #+#    #+#             */
-/*   Updated: 2025/02/05 19:07:53 by menny            ###   ########.fr       */
+/*   Updated: 2025/02/10 17:12:12 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@
 # include <readline/history.h>
 # include <signal.h>
 
-int			init(t_parse *data, t_token *tok, char **envp);
+extern int	g_kill_pid;
+
+
+// int			init(t_parse *data, t_token *tok, char **envp);
 void		check_pid(t_token *data, int pid);
 void		handle_pipe(t_token *data, int fd[2]);
 void		do_command(t_token *data);

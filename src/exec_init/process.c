@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchiaram <mchiaram@student.42.fr>          +#+  +:+       +#+        */
+/*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:26:25 by gvigano           #+#    #+#             */
-/*   Updated: 2025/02/06 14:21:46 by mchiaram         ###   ########.fr       */
+/*   Updated: 2025/02/10 15:32:41 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static void	child_process(t_token *data, int fd0, int fd1)
 {
+	char	*bash_args[3];
+
 	if (data->next)
 	{
 		close(fd0);
@@ -27,9 +29,15 @@ static void	child_process(t_token *data, int fd0, int fd1)
 	}
 	if (execve(data->value[0], data->value, data->env->var) == -1)
 	{
-		perror(data->value[0]);
-		free_token(data);
-		exit(EXIT_FAILURE);
+		bash_args[0] = "bin/bash";
+		bash_args[1] = data->value[0];
+		bash_args[2] = NULL;
+		if (execve("/bin/bash", bash_args, data->env->var) == -1)
+		{
+			perror(data->value[0]);
+			free_token(data);
+			exit(EXIT_FAILURE);
+		}
 	}
 }
 

@@ -6,13 +6,13 @@
 /*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:26:25 by gvigano           #+#    #+#             */
-/*   Updated: 2025/02/06 17:09:13 by menny            ###   ########.fr       */
+/*   Updated: 2025/02/10 15:48:09 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	env_builtins(t_token *data, char *builtin)
+static void	env_builtins(t_token *data, char *builtin, int fd)
 {
 	char	**new_env;
 	size_t	i;
@@ -30,7 +30,7 @@ static void	env_builtins(t_token *data, char *builtin)
 	}
 	else if (!ft_strncmp(builtin, "export", ft_strlen(builtin)))
 	{
-		if (!ft_export(data))
+		if (!ft_export(data, fd))
 			data->env->exit_stat = 1;
 	}
 	else
@@ -47,11 +47,11 @@ void	execute_builtin(t_token *data, char *builtin, int fd1)
 	else if (ft_strncmp(builtin, "pwd", ft_strlen(builtin)) == 0)
 		ft_pwd(data, fd1);
 	else if (ft_strncmp(builtin, "env", ft_strlen(builtin)) == 0)
-		ft_env(data);
+		ft_env(data, fd1);
 	else if (ft_strncmp(builtin, "exit", ft_strlen(builtin)) == 0)
 		ft_exit(data);
 	else if (!ft_strncmp(builtin, "unset", ft_strlen(builtin))
 		|| !ft_strncmp(builtin, "export", ft_strlen(builtin))
 		|| !ft_strncmp(builtin, "cd", ft_strlen(builtin)))
-		env_builtins(data, builtin);
+		env_builtins(data, builtin, fd1);
 }
