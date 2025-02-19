@@ -3,20 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   free_token_struct.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvigano <gvigano@student.42.fr>            +#+  +:+       +#+        */
+/*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 11:48:40 by gvigano           #+#    #+#             */
-/*   Updated: 2025/02/06 11:48:41 by gvigano          ###   ########.fr       */
+/*   Updated: 2025/02/19 18:52:25 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	free_redirect(t_redir *rd)
+void	free_redirect(t_redir *rd)
 {
-	free(rd->name);
-	free(rd);
-	rd = NULL;
+	t_redir	*current;
+
+	current = rd;
+	while (current && current->name)
+	{
+		rd = rd->next;
+		free(current->name);
+		free(current);
+		current = NULL;
+		current = rd;
+	}
 }
 
 static void	free_values(char **value)

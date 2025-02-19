@@ -6,7 +6,7 @@
 /*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 11:46:18 by gvigano           #+#    #+#             */
-/*   Updated: 2025/02/10 17:25:57 by menny            ###   ########.fr       */
+/*   Updated: 2025/02/17 14:49:03 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	sigint_handler(int sig)
 	{
 		if (g_kill_pid > 0)
 		{
-        	kill(g_kill_pid, SIGKILL);
+			kill(g_kill_pid, SIGKILL);
 			rl_on_new_line();
 			rl_replace_line("", 0);
 		}

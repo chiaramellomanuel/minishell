@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchiaram <mchiaram@student.42.fr>          +#+  +:+       +#+        */
+/*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:17:58 by mchiaram          #+#    #+#             */
-/*   Updated: 2025/02/06 13:28:01 by mchiaram         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:52:34 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,7 @@ int		check_if_builtin(char *value);
 char	*expand_var(t_token *tok, char *var);
 void	remove_quotes(t_parse *data);
 void	manage_var(t_parse *data, t_token *tok, size_t i);
+void	manage_new_rd(t_redir *rd, t_parse *data, t_token *tok);
+void	free_redirect(t_redir *rd);
 
 #endif

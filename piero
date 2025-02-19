@@ -1,1 +1,0 @@
-cat outfile.txt | wc -l

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvigano <gvigano@student.42.fr>            +#+  +:+       +#+        */
+/*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:26:25 by gvigano           #+#    #+#             */
-/*   Updated: 2025/02/06 14:39:58 by gvigano          ###   ########.fr       */
+/*   Updated: 2025/02/17 18:31:35 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,17 @@ void	ft_echo(t_token *data, int fd)
 
 	i = 1;
 	new_line = 1;
-	if (data->value[i] && ft_strncmp(data->value[i], "-n",
-			ft_strlen(data->value[0])) == 0)
+	if (data->value[i] && !ft_strcmp(data->value[i], "-n"))
 	{
 		new_line = 0;
 		i++;
 	}
 	while (data->value[i])
 	{
-		if (i > 1 && data->value[i + 1])
-			write(fd, " ", 1);
 		write(fd, data->value[i], ft_strlen(data->value[i]));
 		i++;
+		if (data->value[i])
+			write(fd, " ", 1);
 	}
 	if (new_line == 1)
 		write(fd, "\n", 1);

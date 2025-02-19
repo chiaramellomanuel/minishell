@@ -6,16 +6,22 @@
 /*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:26:25 by gvigano           #+#    #+#             */
-/*   Updated: 2025/02/10 15:47:07 by menny            ###   ########.fr       */
+/*   Updated: 2025/02/17 18:51:56 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(t_token *data, int fd)
+int	ft_env(t_token *data, int fd)
 {
 	int	i;
 
+	if (data->value[1])
+	{
+		ft_putstr_fd("No arguments accepted for env\n", 2);
+		data->env->exit_stat = EXIT_FAILURE;
+		return (0);
+	}
 	i = 0;
 	while (data->env->var[i])
 	{
@@ -28,4 +34,5 @@ void	ft_env(t_token *data, int fd)
 			i++;
 	}
 	data->env->exit_stat = 0;
+	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   avoidablefilebutnorminette.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvigano <gvigano@student.42.fr>            +#+  +:+       +#+        */
+/*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:35:06 by gvigano           #+#    #+#             */
-/*   Updated: 2025/02/06 13:35:07 by gvigano          ###   ########.fr       */
+/*   Updated: 2025/02/19 18:32:01 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,29 @@ void	manage_var(t_parse *data, t_token *tok, size_t i)
 	free (data->value);
 	data->value = ft_strdup(str);
 	free (str);
+}
+
+void	manage_new_rd(t_redir *rd, t_parse *data, t_token *tok)
+{
+	t_redir	*new_rd;
+
+	while (rd->next)
+		rd = rd->next;
+	if (rd && rd->name)
+	{
+		new_rd = malloc(sizeof(t_redir));
+		new_rd->type = data->type;
+		new_rd->name = ft_strdup(data->next->value);
+		rd->next = new_rd;
+		rd = rd->next;
+		rd->next = NULL;
+		tok->nredir++;
+	}
+	else
+	{
+		rd->type = data->type;
+		rd->name = ft_strdup(data->next->value);
+		rd->next = NULL;
+		tok->nredir++;
+	}
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gvigano <gvigano@student.42.fr>            +#+  +:+       +#+         #
+#    By: menny <menny@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/30 14:23:17 by mchiaram          #+#    #+#              #
-#    Updated: 2025/02/06 11:43:26 by gvigano          ###   ########.fr        #
+#    Updated: 2025/02/17 16:16:18 by menny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS		:= $(SRC_DIR)/exec_init/minishell.c \
 				$(SRC_DIR)/exec_init/init_prompt.c \
 				$(SRC_DIR)/exec_init/process.c \
 				$(SRC_DIR)/exec_init/redir.c \
+				$(SRC_DIR)/exec_init/pipes.c \
 				$(SRC_DIR)/exec_init/sig_handlers.c \
 				$(SRC_DIR)/exec_init/utils.c \
 				$(SRC_DIR)/parsing/parse.c \

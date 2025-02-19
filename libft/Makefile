@@ -6,7 +6,7 @@
 #    By: menny <menny@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/17 14:19:10 by mchiaram          #+#    #+#              #
-#    Updated: 2025/02/04 14:49:23 by menny            ###   ########.fr        #
+#    Updated: 2025/02/17 17:12:48 by menny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRCS = $(SRC_DIR)/ft_atoi.c \
 	$(SRC_DIR)/ft_strlcat.c \
 	$(SRC_DIR)/ft_strlcpy.c \
 	$(SRC_DIR)/ft_strlen.c \
+	$(SRC_DIR)/ft_strcmp.c \
 	$(SRC_DIR)/ft_strncmp.c \
 	$(SRC_DIR)/ft_strnstr.c \
 	$(SRC_DIR)/ft_strrchr.c \

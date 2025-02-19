@@ -6,7 +6,7 @@
 /*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 14:24:22 by mchiaram          #+#    #+#             */
-/*   Updated: 2025/02/06 17:25:34 by menny            ###   ########.fr       */
+/*   Updated: 2025/02/11 13:00:12 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char	*expand_home(char **env, char *path)
 {
 	char	*new_path;
 	char	*temp;
-	
+
 	new_path = ft_getenv(env, "HOME");
 	temp = ft_substr(path, 1, ft_strlen(path));
 	new_path = ft_freejoin(new_path, temp);
@@ -75,7 +75,7 @@ int	ft_cd(t_token *data)
 		if (!path)
 			ft_putstr_fd("cd: OLDPWD not set\n", 2);
 	}
-	else 
+	else
 		path = ft_strdup(data->value[1]);
 	if (!path)
 		return (0);

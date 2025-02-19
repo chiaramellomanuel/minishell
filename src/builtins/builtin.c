@@ -6,7 +6,7 @@
 /*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:26:25 by gvigano           #+#    #+#             */
-/*   Updated: 2025/02/10 15:48:09 by menny            ###   ########.fr       */
+/*   Updated: 2025/02/17 18:42:55 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	env_builtins(t_token *data, char *builtin, int fd)
 	size_t	i;
 
 	data->env->exit_stat = 0;
-	if (!ft_strncmp(builtin, "unset", ft_strlen(builtin)) && data->value[1])
+	if (!ft_strcmp(builtin, "unset") && data->value[1])
 	{
 		i = 1;
 		while (data->value[i])
@@ -28,7 +28,7 @@ static void	env_builtins(t_token *data, char *builtin, int fd)
 			data->env->var = new_env;
 		}
 	}
-	else if (!ft_strncmp(builtin, "export", ft_strlen(builtin)))
+	else if (!ft_strcmp(builtin, "export"))
 	{
 		if (!ft_export(data, fd))
 			data->env->exit_stat = 1;
@@ -40,18 +40,22 @@ static void	env_builtins(t_token *data, char *builtin, int fd)
 	}
 }
 
-void	execute_builtin(t_token *data, char *builtin, int fd1)
+int	execute_builtin(t_token *data, char *builtin, int fd1)
 {
-	if (ft_strncmp(builtin, "echo", ft_strlen(builtin)) == 0)
+	if (ft_strcmp(builtin, "echo") == 0)
 		ft_echo(data, fd1);
-	else if (ft_strncmp(builtin, "pwd", ft_strlen(builtin)) == 0)
+	else if (ft_strcmp(builtin, "pwd") == 0)
 		ft_pwd(data, fd1);
-	else if (ft_strncmp(builtin, "env", ft_strlen(builtin)) == 0)
-		ft_env(data, fd1);
-	else if (ft_strncmp(builtin, "exit", ft_strlen(builtin)) == 0)
+	else if (ft_strcmp(builtin, "env") == 0)
+	{
+		if (!ft_env(data, fd1))
+			return (0);
+	}
+	else if (ft_strcmp(builtin, "exit") == 0)
 		ft_exit(data);
-	else if (!ft_strncmp(builtin, "unset", ft_strlen(builtin))
-		|| !ft_strncmp(builtin, "export", ft_strlen(builtin))
-		|| !ft_strncmp(builtin, "cd", ft_strlen(builtin)))
+	else if (!ft_strcmp(builtin, "unset")
+		|| !ft_strcmp(builtin, "export")
+		|| !ft_strcmp(builtin, "cd"))
 		env_builtins(data, builtin, fd1);
+	return (1);
 }

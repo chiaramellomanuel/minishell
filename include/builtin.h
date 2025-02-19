@@ -6,7 +6,7 @@
 /*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 16:19:50 by mchiaram          #+#    #+#             */
-/*   Updated: 2025/02/10 15:52:36 by menny            ###   ########.fr       */
+/*   Updated: 2025/02/17 18:42:11 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 void	ft_exit(t_token *data);
 void	ft_pwd(t_token *data, int fd);
 void	ft_echo(t_token *data, int fd);
-void	ft_env(t_token *data, int fd);
+int		ft_env(t_token *data, int fd);
 char	**export_var(char **env, char *var);
 void	print_var_name_error(char *var_name);
 void	print_export_env(char **env, int fd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvigano <gvigano@student.42.fr>            +#+  +:+       +#+        */
+/*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 11:50:24 by gvigano           #+#    #+#             */
-/*   Updated: 2025/02/06 11:50:47 by gvigano          ###   ########.fr       */
+/*   Updated: 2025/02/17 17:26:44 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	*ft_getenv(char **env, char *val)
 	i = 0;
 	while (env[i])
 	{
-		if (ft_strncmp(env[i], val, ft_strlen(val)) == 0
+		if (!ft_strncmp(env[i], val, ft_strlen(val))
 			&& env[i][ft_strlen(val)] == '=')
 		{
 			var = ft_substr(env[i], (ft_strlen(val) + 1), ft_strlen(env[i]));

@@ -6,7 +6,7 @@
 /*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:23:04 by mchiaram          #+#    #+#             */
-/*   Updated: 2025/02/10 17:56:56 by menny            ###   ########.fr       */
+/*   Updated: 2025/02/17 17:22:39 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ static int	check_if_var(t_parse *data, t_token *tok)
 			if ((data->value[i + 1] && data->value[i + 1] == '?'))
 				data->type = T_EXIT_STAT;
 			else if (!data->value[i + 1])
-			{
 				return (0);
-			}
 			else
 			{
 				manage_var(data, tok, i + 1);
@@ -86,7 +84,7 @@ int	check_if_builtin(char *value)
 	i = 0;
 	while (builtins[i] && value)
 	{
-		if (!ft_strncmp(value, builtins[i++], ft_strlen(value)))
+		if (!ft_strcmp(value, builtins[i++]))
 		{
 			free (builtins);
 			return (1);
@@ -138,6 +136,10 @@ int	fill_t_parse_types(t_parse *data, t_token *tok)
 			else if (data->value[0] == '|' && !data->value[1])
 				data->type = T_PIPE;
 		}
+		if (data->type == T_QUOTE || data->type == T_DQUOTE)
+			remove_quotes(data);
+		if (!data->value)
+			return (0);
 		if (check_if_var(data, tok))
 			data->type = T_VAR;
 		data = data->next;

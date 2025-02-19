@@ -6,7 +6,7 @@
 /*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:40:43 by mchiaram          #+#    #+#             */
-/*   Updated: 2025/02/10 17:34:04 by menny            ###   ########.fr       */
+/*   Updated: 2025/02/18 16:29:20 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static t_token	*init_token(t_token *tok, t_environ *env)
 	tok->value = NULL;
 	tok->env = env;
 	tok->rd = NULL;
+	tok->nredir = 0;
 	tok->next = NULL;
 	return (tok);
 }

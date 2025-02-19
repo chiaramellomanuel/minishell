@@ -6,7 +6,7 @@
 /*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:22:57 by mchiaram          #+#    #+#             */
-/*   Updated: 2025/02/10 18:06:08 by menny            ###   ########.fr       */
+/*   Updated: 2025/02/19 20:03:44 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ static char	*find_path(t_token *tok, char **value)
 	int		i;
 
 	path_env = ft_getenv(tok->env->var, "PATH");
-	if (!path_env)
+	if (!ft_strncmp(*(value), "./", 2) || !path_env)
 	{
+		free (path_env);
 		path_env = ft_strdup(*(value));
 		free (*(value));
 		return (path_env);
@@ -84,12 +85,10 @@ static void	*expand_exit_stat(t_parse *data, t_token *tok)
 	return (str);
 }
 
-size_t	get_tok(t_parse *data, t_token *new_tok, t_redir *new_rd, size_t i)
+size_t	get_tok(t_parse *data, t_token *new_tok, t_redir *rd, size_t i)
 {
 	if (data && (data->type >= T_GENERAL && data->type <= T_COMMAND))
 	{
-		if (data->type == T_QUOTE || data->type == T_DQUOTE)
-			remove_quotes(data);
 		if (data->value)
 		{
 			new_tok->value[i] = expand_exit_stat(data, new_tok);
@@ -99,10 +98,7 @@ size_t	get_tok(t_parse *data, t_token *new_tok, t_redir *new_rd, size_t i)
 		}
 	}
 	else if (data && (data->type >= T_RED_IN && data->type <= T_DELIM))
-	{
-		new_rd->type = data->type;
-		new_rd->name = ft_strdup(data->next->value);
-	}
+		manage_new_rd(rd, data, new_tok);
 	return (i);
 }
 
@@ -110,8 +106,6 @@ size_t	first_tok_copy(t_parse *data, t_token *tok, t_redir *rd, size_t i)
 {
 	if (data && (data->type >= T_GENERAL && data->type <= T_COMMAND))
 	{
-		if (data->type == T_QUOTE || data->type == T_DQUOTE)
-			remove_quotes(data);
 		if (data->value)
 		{
 			tok->value[i] = expand_exit_stat(data, tok);
@@ -121,9 +115,6 @@ size_t	first_tok_copy(t_parse *data, t_token *tok, t_redir *rd, size_t i)
 		}
 	}
 	else if (data && (data->type >= T_RED_IN && data->type <= T_DELIM))
-	{
-		rd->type = data->type;
-		rd->name = ft_strdup(data->next->value);
-	}
+		manage_new_rd(rd, data, tok);
 	return (i);
 }
