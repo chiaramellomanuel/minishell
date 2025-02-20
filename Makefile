@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: menny <menny@student.42.fr>                +#+  +:+       +#+         #
+#    By: mchiaram <mchiaram@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/30 14:23:17 by mchiaram          #+#    #+#              #
-#    Updated: 2025/02/17 16:16:18 by menny            ###   ########.fr        #
+#    Updated: 2025/02/20 17:21:17 by mchiaram         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS		:= $(SRC_DIR)/exec_init/minishell.c \
 				$(SRC_DIR)/exec_init/redir.c \
 				$(SRC_DIR)/exec_init/pipes.c \
 				$(SRC_DIR)/exec_init/sig_handlers.c \
+				$(SRC_DIR)/exec_init/hd_utils.c \
 				$(SRC_DIR)/exec_init/utils.c \
 				$(SRC_DIR)/parsing/parse.c \
 				$(SRC_DIR)/free_mem/free_mem.c \
@@ -85,7 +86,55 @@ header:
 		echo "${BOLD}${YELLOW}No changes detected, not rebuilding $(NAME)${NO_COLOR}"; \
 	fi
 
-.PHONY: all re clean fclean header
+supp:
+	touch ~/.supp.supp
+	echo "{" > ~/.supp.supp
+	echo "   IgnoreReadlineLeak" >> ~/.supp.supp
+	echo "   Memcheck:Leak" >> ~/.supp.supp
+	echo "   match-leak-kinds: reachable" >> ~/.supp.supp
+	echo "   ..." >> ~/.supp.supp
+	echo "   fun:add_history" >> ~/.supp.supp
+	echo "   ..." >> ~/.supp.supp
+	echo "}" >> ~/.supp.supp
+	echo "{" >> ~/.supp.supp
+	echo "   IgnoreReadlineLeak" >> ~/.supp.supp
+	echo "   Memcheck:Leak" >> ~/.supp.supp
+	echo "   match-leak-kinds: reachable" >> ~/.supp.supp
+	echo "   ..." >> ~/.supp.supp
+	echo "   fun:readline" >> ~/.supp.supp
+	echo "   ..." >> ~/.supp.supp
+	echo "}" >> ~/.supp.supp
+	echo "{" >> ~/.supp.supp
+	echo "   IgnoreReadlineLeak" >> ~/.supp.supp
+	echo "   Memcheck:Leak" >> ~/.supp.supp
+	echo "   ..." >> ~/.supp.supp
+	echo "   fun:readline" >> ~/.supp.supp
+	echo "   ..." >> ~/.supp.supp
+	echo "}" >> ~/.supp.supp
+	echo "{" >> ~/.supp.supp
+	echo "   Malloc_Leak_Below_Main" >> ~/.supp.supp
+	echo "   Memcheck:Leak" >> ~/.supp.supp
+	echo "   fun:malloc" >> ~/.supp.supp
+	echo "   ..." >> ~/.supp.supp
+	echo "   obj:/usr/bin/*" >> ~/.supp.supp
+	echo "}" >> ~/.supp.supp
+	echo "{" >> ~/.supp.supp
+	echo "   Calloc_Leak_Below_Main" >> ~/.supp.supp
+	echo "   Memcheck:Leak" >> ~/.supp.supp
+	echo "   fun:calloc" >> ~/.supp.supp
+	echo "   ..." >> ~/.supp.supp
+	echo "   obj:/usr/bin/*" >> ~/.supp.supp
+	echo "}" >> ~/.supp.supp
+	echo "{" >> ~/.supp.supp
+	echo "   Realloc_Leak_Below_Main" >> ~/.supp.supp
+	echo "   Memcheck:Leak" >> ~/.supp.supp
+	echo "   fun:realloc" >> ~/.supp.supp
+	echo "   ..." >> ~/.supp.supp
+	echo "   obj:/usr/bin/*" >> ~/.supp.supp
+	echo "}" >> ~/.supp.supp
+	echo "use file supp to suppress valgrind errors: valgrind --suppressions="'"$$HOME/.supp.supp"'" ./minishell"
+
+.PHONY: all re clean fclean header supp
 .SILENT:
 
 YELLOW		:= ${shell tput setaf 3}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mchiaram <mchiaram@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 11:42:18 by gvigano           #+#    #+#             */
-/*   Updated: 2025/02/17 19:11:19 by menny            ###   ########.fr       */
+/*   Updated: 2025/02/20 17:02:56 by mchiaram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	check_pid(t_token *data, int pid)
 	}
 }
 
-void	free_process_memory(int **pipes, int *pids)
+void	free_process_memory(int **pipes, int **pids)
 {
 	int		i;
 
@@ -61,6 +61,7 @@ void	free_process_memory(int **pipes, int *pids)
 			free (pipes[i++]);
 		free (pipes);
 	}
-	if (pids)
-		free (pids);
+	if (*(pids))
+		free (*(pids));
+	unlink("heredoc_tmp.txt");
 }

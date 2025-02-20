@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mchiaram <mchiaram@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 14:24:22 by mchiaram          #+#    #+#             */
-/*   Updated: 2025/02/11 13:00:12 by menny            ###   ########.fr       */
+/*   Updated: 2025/02/20 11:19:46 by mchiaram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static char	*expand_home(char **env, char *path)
 	return (new_path);
 }
 
-static void	update_pwd(t_token *data, char *path)
+static void	update_pwd(t_token *data, char *var)
 {
 	size_t	i;
 	char	pwd[1024];
@@ -42,17 +42,7 @@ static void	update_pwd(t_token *data, char *path)
 
 	new_env = copy_env(data->env->var);
 	getcwd(pwd, sizeof(pwd));
-	old_pwd = ft_strjoin("OLDPWD=", pwd);
-	free_environment(data->env, 0);
-	data->env->var = export_var(new_env, old_pwd);
-	i = 0;
-	while (new_env[i])
-		free (new_env[i++]);
-	free (new_env);
-	free (old_pwd);
-	old_pwd = ft_strjoin("PWD", "=");
-	old_pwd = ft_freejoin(old_pwd, path);
-	new_env = copy_env(data->env->var);
+	old_pwd = ft_strjoin(var, pwd);
 	free_environment(data->env, 0);
 	data->env->var = export_var(new_env, old_pwd);
 	i = 0;
@@ -83,8 +73,9 @@ int	ft_cd(t_token *data)
 		return (print_cd_error(": No such file or directory\n", &path));
 	if (access(path, X_OK))
 		return (print_cd_error(": Permission denied\n", &path));
-	update_pwd(data, path);
+	update_pwd(data, "OLDPWD=");
 	chdir(path);
+	update_pwd(data, "PWD=");
 	free (path);
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_prompt.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mchiaram <mchiaram@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:20:12 by mchiaram          #+#    #+#             */
-/*   Updated: 2025/02/10 17:13:12 by menny            ###   ########.fr       */
+/*   Updated: 2025/02/20 14:27:55 by mchiaram         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,6 @@ char	*prompt_init(t_token *tok)
 	free (prompt);
 	prompt = NULL;
 	input = ft_freetrim(&input, " \t\n");
-	g_kill_pid = 0;
+	g_kill_pid = -2;
 	return (input);
 }

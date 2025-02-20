@@ -1,10 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipes.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mchiaram <mchiaram@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/20 15:57:13 by mchiaram          #+#    #+#             */
+/*   Updated: 2025/02/20 15:57:14 by mchiaram         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int	*first_check_pipes(int ncommand, int i, int **pipes)
+int	*first_check_pipes(int *fd, int ncommand, int i, int **pipes)
 {
-	int		*fd;
-
-	fd = ft_calloc(2, sizeof(int));
 	fd[0] = STDIN_FILENO;
 	if (i > 0)
 		fd[0] = pipes[i - 1][0];
