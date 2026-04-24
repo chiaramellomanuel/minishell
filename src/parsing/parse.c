@@ -6,23 +6,26 @@
 /*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:00:12 by mchiaram          #+#    #+#             */
-/*   Updated: 2025/02/11 18:53:10 by menny            ###   ########.fr       */
+/*   Updated: 2025/02/24 10:40:15 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	remove_quotes(t_parse *data)
-{
-	char	*str;
+// void	remove_quotes(t_parse *data)
+// {
+// 	char	*str;
 
-	str = ft_substr(data->value, 1, (ft_strlen(data->value) - 2));
-	free (data->value);
-	data->value = NULL;
-	if (*str)
-		data->value = ft_strdup(str);
-	free (str);
-}
+// 	str = ft_substr(data->value, 1, (ft_strlen(data->value) - 2));
+// 	free (data->value);
+// 	data->value = ft_strdup("\0");
+// 	if (*str)
+// 	{
+// 		free (data->value);
+// 		data->value = ft_strdup(str);
+// 	}
+// 	free (str);
+// }
 
 char	*expand_var(t_token *tok, char *var)
 {
@@ -62,7 +65,8 @@ int	check_path_access(char *dir, char *value)
 
 int	input_parse(char **input, t_parse *data, t_token *tok)
 {
-	if (!fill_t_parse_values(*(input), data) || !fill_t_parse_types(data, tok))
+	if (!fill_t_parse_values(*(input), data, tok)
+		|| !fill_t_parse_types(data, tok))
 	{
 		free_all(data, NULL, NULL, input);
 		return (0);

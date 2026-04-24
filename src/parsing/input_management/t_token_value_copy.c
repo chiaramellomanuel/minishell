@@ -6,7 +6,7 @@
 /*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:22:57 by mchiaram          #+#    #+#             */
-/*   Updated: 2025/02/19 20:03:44 by menny            ###   ########.fr       */
+/*   Updated: 2025/02/24 11:47:07 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@ static char	*find_path_loop(char **dir, char *value, char **path_env)
 {
 	size_t	i;
 
+	if (value && !*value)
+	{
+		free(*(path_env));
+		*(path_env) = ft_strdup("\0");
+		return (*(path_env));
+	}
 	i = 0;
 	while (dir[i])
 	{

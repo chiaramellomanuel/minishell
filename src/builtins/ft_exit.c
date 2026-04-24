@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchiaram <mchiaram@student.42.fr>          +#+  +:+       +#+        */
+/*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:26:25 by gvigano           #+#    #+#             */
-/*   Updated: 2025/02/20 16:55:43 by mchiaram         ###   ########.fr       */
+/*   Updated: 2025/02/24 13:05:16 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ void	ft_exit(t_token *data)
 	free_environment(data->env, 1);
 	free_token(data);
 	unlink("heredoc_tmp.txt");
+	printf("exit\n");
 	exit(exit_nbr);
 }

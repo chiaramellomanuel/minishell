@@ -6,57 +6,85 @@
 /*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 14:43:43 by mchiaram          #+#    #+#             */
-/*   Updated: 2025/02/05 11:08:00 by menny            ###   ########.fr       */
+/*   Updated: 2025/02/24 10:36:22 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	check_quotes(char *input, int type)
-{
-	size_t	len;
+// static int	check_quotes(char *input, int type)
+// {
+// 	size_t	len;
 
-	len = 0;
-	input++;
-	while (*input && *input != type)
-	{
-		len++;
-		input++;
-	}
-	len += 2;
-	if (!*input)
-	{
-		printf("ERROR: Quotes must be closed\n");
-		len = 0;
-	}
-	return (len);
-}
+// 	len = 0;
+// 	input++;
+// 	while (*input && *input != type)
+// 	{
+// 		len++;
+// 		input++;
+// 	}
+// 	len += 2;
+// 	if (!*input)
+// 	{
+// 		printf("ERROR: Quotes must be closed\n");
+// 		len = 0;
+// 	}
+// 	return (len);
+// }
+
+// static int	token_len(char *input)
+// {
+// 	size_t	len;
+// 	int		type;
+
+// 	len = 0;
+// 	type = *input;
+// 	if (type == '\"' || type == '\'')
+// 		len = check_quotes(input, type);
+// 	else
+// 	{
+// 		while (*input && (*input != ' ' && *input != '\n' && *input != '\t'
+// 				&& *input != '|' && *input != '<' && *input != '>'
+// 				&& *input != '\'' && *input != '\"'))
+// 		{
+// 			len++;
+// 			input++;
+// 		}
+// 		if (len == 0 && (*input == '|' || *input == '<' || *input == '>'))
+// 		{
+// 			len = 1;
+// 			if ((*input == '<' && *(input + 1) == '<')
+// 				|| (*input == '>' && *(input + 1) == '>'))
+// 				len = 2;
+// 		}
+// 	}
+// 	return (len);
+// }
 
 static int	token_len(char *input)
 {
 	size_t	len;
-	int		type;
 
 	len = 0;
-	type = *input;
-	if (type == '\"' || type == '\'')
-		len = check_quotes(input, type);
-	else
+	if (!check_closed_quotes(input))
+		return (0);
+	while (*input && (*input != ' ' && *input != '\n' && *input != '\t'
+			&& *input != '|' && *input != '<' && *input != '>'))
 	{
-		while (*input && (*input != ' ' && *input != '\n' && *input != '\t'
-				&& *input != '|' && *input != '<' && *input != '>'
-				&& *input != '\'' && *input != '\"'))
+		if (*input == '\"' || *input == '\'')
+			input = check_quotes(input, &len);
+		else
 		{
 			len++;
 			input++;
 		}
-		if (len == 0 && (*input == '|' || *input == '<' || *input == '>'))
-		{
-			len = 1;
-			if ((*input == '<' && *(input + 1) == '<')
-				|| (*input == '>' && *(input + 1) == '>'))
-				len = 2;
-		}
+	}
+	if (len == 0 && (*input == '|' || *input == '<' || *input == '>'))
+	{
+		len = 1;
+		if ((*input == '<' && *(input + 1) == '<')
+			|| (*input == '>' && *(input + 1) == '>'))
+			len = 2;
 	}
 	return (len);
 }
@@ -102,18 +130,24 @@ static char	*first_value(t_parse *data, char *input)
 	return (input + size);
 }
 
-int	fill_t_parse_values(char *input, t_parse *data)
+int	fill_t_parse_values(char *input, t_parse *data, t_token *tok)
 {
 	while (*input && (*input == ' ' || *input == '\t' || *input == '\n'))
 		input++;
 	if (input)
 		input = first_value(data, input);
 	if (!input)
+	{
+		tok->env->exit_stat = 1;
 		return (0);
+	}
 	if (input && *input)
 	{
 		if (!get_values(data, input))
+		{
+			tok->env->exit_stat = 1;
 			return (0);
+		}
 	}
 	return (1);
 }

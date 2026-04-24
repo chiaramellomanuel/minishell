@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchiaram <mchiaram@student.42.fr>          +#+  +:+       +#+        */
+/*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:43:01 by mchiaram          #+#    #+#             */
-/*   Updated: 2025/02/20 11:20:19 by mchiaram         ###   ########.fr       */
+/*   Updated: 2025/02/23 17:50:17 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,21 @@ typedef struct s_redir
 	struct s_redir	*next;
 }	t_redir;
 
+typedef struct s_free
+{
+	int				**pids;
+	int				**fd;
+	int				**pipes;
+}	t_free;
+
 typedef struct s_token
 {
 	char			**value;
 	t_environ		*env;
 	t_redir			*rd;
+	t_free			*fvar;
 	size_t			nredir;
+	int				ncommand;
 	struct s_token	*next;
 }	t_token;
 

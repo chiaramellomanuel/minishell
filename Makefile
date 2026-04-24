@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mchiaram <mchiaram@student.42.fr>          +#+  +:+       +#+         #
+#    By: menny <menny@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/30 14:23:17 by mchiaram          #+#    #+#              #
-#    Updated: 2025/02/20 17:21:17 by mchiaram         ###   ########.fr        #
+#    Updated: 2025/02/24 10:39:18 by menny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:= minishell
 LIBFT		:= libft/libft.a
-CC			:= gcc -g
-CFLAGS		:= -Werror -Wextra -Wall -I./include
+CC			:= cc -g
+CFLAGS		:= -Werror -Wextra -Wall -lreadline -I./include
 LIB			:= ft
 RM			:= rm -rf
 SRC_DIR		:= src
@@ -29,16 +29,17 @@ SRCS		:= $(SRC_DIR)/exec_init/minishell.c \
 				$(SRC_DIR)/exec_init/hd_utils.c \
 				$(SRC_DIR)/exec_init/utils.c \
 				$(SRC_DIR)/parsing/parse.c \
+				$(SRC_DIR)/parsing/input_management/t_parse_values_fill.c \
+				$(SRC_DIR)/parsing/input_management/t_parse_types_fill.c \
+				$(SRC_DIR)/parsing/input_management/t_token_fill.c \
+				$(SRC_DIR)/parsing/input_management/t_token_value_copy.c \
+				$(SRC_DIR)/parsing/input_management/manage_quotes.c \
+				$(SRC_DIR)/parsing/input_management/parse_utils.c \
 				$(SRC_DIR)/free_mem/free_mem.c \
 				$(SRC_DIR)/free_mem/free_parse_struct.c \
 				$(SRC_DIR)/free_mem/free_token_struct.c \
 				$(SRC_DIR)/free_mem/free_env_struct.c \
 				$(SRC_DIR)/handle_env/handle_env.c \
-				$(SRC_DIR)/input_management/t_parse_values_fill.c \
-				$(SRC_DIR)/input_management/t_parse_types_fill.c \
-				$(SRC_DIR)/input_management/t_token_fill.c \
-				$(SRC_DIR)/input_management/t_token_value_copy.c \
-				$(SRC_DIR)/input_management/avoidablefilebutnorminette.c \
 				$(SRC_DIR)/builtins/builtin.c \
 				$(SRC_DIR)/builtins/ft_cd.c \
 				$(SRC_DIR)/builtins/ft_echo.c \

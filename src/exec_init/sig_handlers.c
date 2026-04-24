@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sig_handlers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchiaram <mchiaram@student.42.fr>          +#+  +:+       +#+        */
+/*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 11:46:18 by gvigano           #+#    #+#             */
-/*   Updated: 2025/02/20 14:44:47 by mchiaram         ###   ########.fr       */
+/*   Updated: 2025/02/23 18:55:09 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,20 @@ void	sigint_handler(int sig)
 		if (g_kill_pid > 0)
 		{
 			kill(g_kill_pid, SIGKILL);
+			write(1, "\n", 1);
 			rl_on_new_line();
 			rl_replace_line("", 0);
 		}
 		else if (g_kill_pid == -1)
 		{
-			printf("\n");
+			write(1, "\n", 1);
 			rl_on_new_line();
 			rl_replace_line("", 0);
 			rl_redisplay();
 		}
 		else if (g_kill_pid == -2)
 		{
-			printf("\n");
+			write(1, "\n", 1);
 			rl_on_new_line();
 			rl_replace_line("", 0);
 		}

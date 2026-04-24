@@ -6,7 +6,7 @@
 /*   By: menny <menny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:23:04 by mchiaram          #+#    #+#             */
-/*   Updated: 2025/02/17 17:22:39 by menny            ###   ########.fr       */
+/*   Updated: 2025/02/24 13:02:15 by menny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	check_if_var(t_parse *data, t_token *tok)
 	size_t	i;
 
 	i = 0;
-	if ((!data && !data->value) || data->type == T_QUOTE)
+	if ((!data || !data->value) || data->type == T_QUOTE)
 		return (0);
 	while (data->value[i])
 	{
@@ -136,12 +136,11 @@ int	fill_t_parse_types(t_parse *data, t_token *tok)
 			else if (data->value[0] == '|' && !data->value[1])
 				data->type = T_PIPE;
 		}
-		if (data->type == T_QUOTE || data->type == T_DQUOTE)
-			remove_quotes(data);
-		if (!data->value)
-			return (0);
 		if (check_if_var(data, tok))
 			data->type = T_VAR;
+		remove_quotes(data);
+		if (!data->value)
+			return (0);
 		data = data->next;
 		if (data && data->type != T_GENERAL)
 			data = data->next;
